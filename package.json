@@ -1,18 +1,18 @@
 {
-  "name": "de.codesmile. ???",
-  "displayName": "CodeSmile ???",
-  "description": "???",
-  "version": "0.1.0",
+  "name": "de.codesmile.scriptbuilder",
+  "displayName": "CodeSmile ScriptBuilder",
+  "description": "Build C# scripts syntactically with an easier syntax than Roslyn and less brittle than string concat.",
+  "version": "1.0.0",
   "unity": "2021.3",
   "unityRelease": "3f1",
   "author": {
     "name": "Steffen Itterheim aka 'CodeSmile' (Unity MVP, Self-Employed)",
     "email": "steffen@steffenitterheim.de",
-    "url": "https://codesmile.de"
+    "url": "https://github.com/CodeSmile-0000011110110111/de.codesmile.scriptbuilder"
   },
-  "changelogUrl": "https://codesmile.de",
-  "documentationUrl": "https://codesmile.de",
-  "licensesUrl": "https://codesmile.de",
+  "changelogUrl": "https://github.com/CodeSmile-0000011110110111/de.codesmile.scriptbuilder/tree/main/CHANGELOG.md",
+  "documentationUrl": "https://github.com/CodeSmile-0000011110110111/de.codesmile.scriptbuilder/tree/main/README.md",
+  "licensesUrl": "https://github.com/CodeSmile-0000011110110111/de.codesmile.scriptbuilder/tree/main/LICENSE",
   "dependencies": {
     "com.unity.test-framework": "1.4.1"
   },
