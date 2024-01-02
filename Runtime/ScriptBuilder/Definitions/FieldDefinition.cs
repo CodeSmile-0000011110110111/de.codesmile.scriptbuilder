@@ -1,25 +1,24 @@
-﻿// Copyright (C) 2021-2022 Steffen Itterheim
-// Usage is bound to the Unity Asset Store Terms of Service and EULA: https://unity3d.com/legal/as_terms
+﻿// Copyright (C) 2021-2024 Steffen Itterheim
+// Refer to included LICENSE file for terms and conditions.
 
-using DataIO.Extensions.System;
-using DataIO.Tools;
+using CodeSmile.CSharp.Keywords;
 using System;
 using System.Collections.Generic;
 
-namespace DataIO.Script.Builder
+namespace CodeSmile.CSharp.Definitions
 {
 	public sealed class FieldDefinition
 	{
 		public Access Access { get; }
-		public string Type { get; }
-		public string Identifier { get; }
-		public string[] Attributes { get; }
+		public String Type { get; }
+		public String Identifier { get; }
+		public String[] Attributes { get; }
 
-		public FieldDefinition(Access modifier, string type, string identifier, string[] attributes = null)
+		public FieldDefinition(Access modifier, String type, String identifier, String[] attributes = null)
 		{
-			if (string.IsNullOrWhiteSpace(type))
+			if (String.IsNullOrWhiteSpace(type))
 				throw new ArgumentException("type");
-			if (string.IsNullOrWhiteSpace(identifier))
+			if (String.IsNullOrWhiteSpace(identifier))
 				throw new ArgumentException("identifier");
 
 			Access = modifier;
@@ -28,18 +27,16 @@ namespace DataIO.Script.Builder
 
 			if (attributes != null)
 			{
-				var trimmedAttributes = new List<string>();
+				var trimmedAttributes = new List<String>();
 				for (var i = 0; i < attributes.Length; i++)
-				{
 					if (attributes[i] != null)
 						trimmedAttributes.Add(attributes[i].Trim());
-				}
 
 				Attributes = trimmedAttributes.ToArray();
 			}
 		}
 
-		internal string Build(bool spacesForTabs = false)
+		internal String Build(Boolean spacesForTabs = false)
 		{
 			var builder = new IndentStringBuilder(spacesForTabs);
 			builder.Indentation = 2;
@@ -50,7 +47,7 @@ namespace DataIO.Script.Builder
 			return builder.ToString();
 		}
 
-		public override string ToString() => Build();
-		public string ToString(bool spacesForTabs) => Build(spacesForTabs);
+		public override String ToString() => Build();
+		public String ToString(Boolean spacesForTabs) => Build(spacesForTabs);
 	}
 }

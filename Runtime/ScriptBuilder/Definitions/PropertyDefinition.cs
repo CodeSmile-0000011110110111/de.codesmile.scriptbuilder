@@ -1,25 +1,25 @@
-﻿// Copyright (C) 2021-2022 Steffen Itterheim
-// Usage is bound to the Unity Asset Store Terms of Service and EULA: https://unity3d.com/legal/as_terms
+﻿// Copyright (C) 2021-2024 Steffen Itterheim
+// Refer to included LICENSE file for terms and conditions.
 
-using DataIO.Extensions.System;
-using DataIO.Tools;
+using CodeSmile.CSharp.Keywords;
 using System;
 
-namespace DataIO.Script.Builder
+namespace CodeSmile.CSharp.Definitions
 {
 	public sealed class PropertyDefinition
 	{
 		public Access Access { get; }
-		public string Type { get; }
-		public string Identifier { get; }
-		public bool ReadOnly { get; }
-		public string BackingFieldIdentifier { get; }
+		public String Type { get; }
+		public String Identifier { get; }
+		public Boolean ReadOnly { get; }
+		public String BackingFieldIdentifier { get; }
 
-		public PropertyDefinition(Access modifier, string type, string identifier, string backingFieldIdentifier = null, bool readOnly = false)
+		public PropertyDefinition(Access modifier, String type, String identifier, String backingFieldIdentifier = null,
+			Boolean readOnly = false)
 		{
-			if (string.IsNullOrWhiteSpace(type))
+			if (String.IsNullOrWhiteSpace(type))
 				throw new ArgumentException("type");
-			if (string.IsNullOrWhiteSpace(identifier))
+			if (String.IsNullOrWhiteSpace(identifier))
 				throw new ArgumentException("identifier");
 
 			Access = modifier;
@@ -29,21 +29,26 @@ namespace DataIO.Script.Builder
 			BackingFieldIdentifier = backingFieldIdentifier.SanitizeIdentifier();
 		}
 
-		internal string Build(bool spacesForTabs = false)
+		internal String Build(Boolean spacesForTabs = false)
 		{
 			var builder = new IndentStringBuilder(spacesForTabs);
 			builder.Indentation = 2;
 
 			builder.AppendIndented(new[] { Access.GetName(), Type, " ", Identifier });
 
-			var hasBackingField = string.IsNullOrWhiteSpace(BackingFieldIdentifier) == false;
+			var hasBackingField = String.IsNullOrWhiteSpace(BackingFieldIdentifier) == false;
 			if (ReadOnly && hasBackingField)
 			{
 				// make it an expression-bodied property 
 				builder.Append(new[] { " => ", BackingFieldIdentifier, ";" });
 			}
 			else if (hasBackingField)
-				builder.Append(new[] { " { get { return ", BackingFieldIdentifier, "; } set { ", BackingFieldIdentifier, " = value; } }" });
+			{
+				builder.Append(new[]
+				{
+					" { get { return ", BackingFieldIdentifier, "; } set { ", BackingFieldIdentifier, " = value; } }",
+				});
+			}
 			else
 			{
 				builder.Append(" { get; ");
@@ -57,7 +62,7 @@ namespace DataIO.Script.Builder
 			return builder.ToString();
 		}
 
-		public override string ToString() => Build();
-		public string ToString(bool spacesForTabs) => Build(spacesForTabs);
+		public override String ToString() => Build();
+		public String ToString(Boolean spacesForTabs) => Build(spacesForTabs);
 	}
 }

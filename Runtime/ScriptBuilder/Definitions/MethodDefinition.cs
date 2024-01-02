@@ -1,29 +1,29 @@
-﻿// Copyright (C) 2021-2022 Steffen Itterheim
-// Usage is bound to the Unity Asset Store Terms of Service and EULA: https://unity3d.com/legal/as_terms
+﻿// Copyright (C) 2021-2024 Steffen Itterheim
+// Refer to included LICENSE file for terms and conditions.
 
-using DataIO.Extensions.System;
-using DataIO.Tools;
+using CodeSmile.CSharp.Keywords;
 using System;
 
-namespace DataIO.Script.Builder
+namespace CodeSmile.CSharp.Definitions
 {
 	public sealed class MethodDefinition
 	{
 		public Access Access { get; }
 		public Method Method { get; }
-		public string MethodName { get; }
+		public String MethodName { get; }
 		public ParameterDefinition[] Parameters { get; }
-		public string ReturnType { get; }
-		public string[] BodyLines { get; }
+		public String ReturnType { get; }
+		public String[] BodyLines { get; }
 
-		public MethodDefinition(Access modifier, Method method, string returnType, string methodName, string[] bodyLines = null)
+		public MethodDefinition(Access modifier, Method method, String returnType, String methodName,
+			String[] bodyLines = null)
 			:
 			this(modifier, method, returnType, methodName, null, bodyLines) {}
 
-		public MethodDefinition(Access modifier, Method method, string returnType, string methodName,
-			ParameterDefinition[] parameters, string[] bodyLines = null)
+		public MethodDefinition(Access modifier, Method method, String returnType, String methodName,
+			ParameterDefinition[] parameters, String[] bodyLines = null)
 		{
-			if (string.IsNullOrWhiteSpace(methodName))
+			if (String.IsNullOrWhiteSpace(methodName))
 				throw new ArgumentException("methodName");
 			if (methodName.IsValidCSharpIdentifier() == false)
 				throw new ArgumentException($"'{MethodName}' is not a valid C# identifier");
@@ -32,11 +32,11 @@ namespace DataIO.Script.Builder
 			Method = method;
 			MethodName = methodName;
 			Parameters = parameters;
-			ReturnType = string.IsNullOrWhiteSpace(returnType) ? "void" : returnType;
+			ReturnType = String.IsNullOrWhiteSpace(returnType) ? "void" : returnType;
 			BodyLines = bodyLines;
 		}
 
-		internal string Build(bool spacesForTabs = false)
+		internal String Build(Boolean spacesForTabs = false)
 		{
 			var builder = new IndentStringBuilder(spacesForTabs);
 			builder.Indentation = 2;
@@ -65,7 +65,7 @@ namespace DataIO.Script.Builder
 			return builder.ToString();
 		}
 
-		public override string ToString() => Build();
-		public string ToString(bool spacesForTabs) => Build(spacesForTabs);
+		public override String ToString() => Build();
+		public String ToString(Boolean spacesForTabs) => Build(spacesForTabs);
 	}
 }

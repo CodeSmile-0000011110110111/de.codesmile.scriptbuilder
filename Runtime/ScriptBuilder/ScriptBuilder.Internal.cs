@@ -1,16 +1,18 @@
-﻿using DataIO.Extensions.System;
-using DataIO.Tools;
+﻿// Copyright (C) 2021-2024 Steffen Itterheim
+// Refer to included LICENSE file for terms and conditions.
+
+using CodeSmile.CSharp.Definitions;
 using System;
 using System.Collections.Generic;
 
-namespace DataIO.Script.Builder
+namespace CodeSmile.CSharp
 {
 	public sealed partial class ScriptBuilder
 	{
-		private readonly string _nameSpace;
-		private readonly List<string> _usings;
-		private readonly List<TypeDefinition> _types = new List<TypeDefinition>();
-		private string _toString;
+		private readonly String _nameSpace;
+		private readonly List<String> _usings;
+		private readonly List<TypeDefinition> _types = new();
+		private String _toString;
 		private IndentStringBuilder _builder;
 
 		private ScriptBuilder() {}
@@ -20,7 +22,7 @@ namespace DataIO.Script.Builder
 			if (_usings == null || _usings.Count == 0)
 				return;
 
-			var sortedUsings = new List<string>(_usings);
+			var sortedUsings = new List<String>(_usings);
 			sortedUsings.Sort();
 
 			foreach (var use in sortedUsings)
@@ -35,7 +37,7 @@ namespace DataIO.Script.Builder
 
 		private void BuildNamespace()
 		{
-			if (string.IsNullOrWhiteSpace(_nameSpace))
+			if (String.IsNullOrWhiteSpace(_nameSpace))
 				throw new ArgumentException("Namespace cannot be empty");
 			if (_nameSpace.IsValidCSharpIdentifier() == false)
 				throw new ArgumentException($"Namespace '{_nameSpace}' is not a valid C# identifier");
@@ -45,7 +47,7 @@ namespace DataIO.Script.Builder
 			_builder.AppendIndentedLine("{");
 		}
 
-		private void BuildTypes(bool spacesForTabs)
+		private void BuildTypes(Boolean spacesForTabs)
 		{
 			for (var i = 0; i < _types.Count; i++)
 			{
@@ -58,7 +60,7 @@ namespace DataIO.Script.Builder
 
 		private void BuildEndOfFile() => _builder.AppendLine("}"); // end namespace
 
-		private string Build(bool spacesForTabs = false)
+		private String Build(Boolean spacesForTabs = false)
 		{
 			_builder = new IndentStringBuilder(spacesForTabs);
 

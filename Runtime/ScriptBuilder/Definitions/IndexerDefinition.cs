@@ -1,27 +1,27 @@
-﻿// Copyright (C) 2021-2022 Steffen Itterheim
-// Usage is bound to the Unity Asset Store Terms of Service and EULA: https://unity3d.com/legal/as_terms
+﻿// Copyright (C) 2021-2024 Steffen Itterheim
+// Refer to included LICENSE file for terms and conditions.
 
-using DataIO.Extensions.System;
-using DataIO.Tools;
+using CodeSmile.CSharp.Keywords;
 using System;
 
-namespace DataIO.Script.Builder
+namespace CodeSmile.CSharp.Definitions
 {
 	public sealed class IndexerDefinition
 	{
 		public Access Access { get; }
-		public string ReturnType { get; }
+		public String ReturnType { get; }
 		public ParameterDefinition Index { get; }
-		public string GetterLine { get; }
-		public string SetterLine { get; }
+		public String GetterLine { get; }
+		public String SetterLine { get; }
 
-		public IndexerDefinition(Access modifier, string returnType, ParameterDefinition index, string getterLine, string setterLine = null)
+		public IndexerDefinition(Access modifier, String returnType, ParameterDefinition index, String getterLine,
+			String setterLine = null)
 		{
-			if (string.IsNullOrWhiteSpace(returnType))
+			if (String.IsNullOrWhiteSpace(returnType))
 				throw new ArgumentException("returnType");
 			if (index == null)
 				throw new ArgumentException("index");
-			if (string.IsNullOrWhiteSpace(getterLine))
+			if (String.IsNullOrWhiteSpace(getterLine))
 				throw new ArgumentException("getterLine");
 
 			Access = modifier;
@@ -31,12 +31,13 @@ namespace DataIO.Script.Builder
 			SetterLine = setterLine;
 		}
 
-		internal string Build(bool spacesForTabs = false)
+		internal String Build(Boolean spacesForTabs = false)
 		{
 			var builder = new IndentStringBuilder(spacesForTabs);
 			builder.Indentation = 2;
 
-			builder.AppendIndentedLine(new[] { Access.GetName(), ReturnType, " this[", Index.Type, " ", Index.Identifier, "]" });
+			builder.AppendIndentedLine(new[]
+				{ Access.GetName(), ReturnType, " this[", Index.Type, " ", Index.Identifier, "]" });
 
 			builder.OpenBlock();
 			builder.AppendIndented("get => ");
@@ -51,7 +52,7 @@ namespace DataIO.Script.Builder
 			return builder.ToString();
 		}
 
-		public override string ToString() => Build();
-		public string ToString(bool spacesForTabs) => Build(spacesForTabs);
+		public override String ToString() => Build();
+		public String ToString(Boolean spacesForTabs) => Build(spacesForTabs);
 	}
 }

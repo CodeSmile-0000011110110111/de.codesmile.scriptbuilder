@@ -1,41 +1,40 @@
-﻿// Copyright (C) 2021-2022 Steffen Itterheim
-// Usage is bound to the Unity Asset Store Terms of Service and EULA: https://unity3d.com/legal/as_terms
+﻿// Copyright (C) 2021-2024 Steffen Itterheim
+// Refer to included LICENSE file for terms and conditions.
 
-using DataIO.Extensions.System;
-using DataIO.Tools;
+using CodeSmile.CSharp.Keywords;
 using System;
 using System.Collections.Generic;
 
-namespace DataIO.Script.Builder
+namespace CodeSmile.CSharp.Definitions
 {
 	public sealed class TypeDefinition
 	{
-		private readonly List<FieldDefinition> _fields = new List<FieldDefinition>();
-		private readonly List<PropertyDefinition> _properties = new List<PropertyDefinition>();
-		private readonly List<ConstructorDefinition> _constructors = new List<ConstructorDefinition>();
-		private readonly List<MethodDefinition> _methods = new List<MethodDefinition>();
-		private readonly List<IndexerDefinition> _indexers = new List<IndexerDefinition>();
+		private readonly List<FieldDefinition> _fields = new();
+		private readonly List<PropertyDefinition> _properties = new();
+		private readonly List<ConstructorDefinition> _constructors = new();
+		private readonly List<MethodDefinition> _methods = new();
+		private readonly List<IndexerDefinition> _indexers = new();
 
 		public Access Access { get; }
 		public Class Class { get; }
-		public string Identifier { get; }
-		public string BaseClass { get; }
-		public string[] Interfaces { get; }
-		public string[] Attributes { get; }
+		public String Identifier { get; }
+		public String BaseClass { get; }
+		public String[] Interfaces { get; }
+		public String[] Attributes { get; }
 
-		public TypeDefinition(Access modifier, Class @class, string identifier, string[] attributes)
+		public TypeDefinition(Access modifier, Class @class, String identifier, String[] attributes)
 			:
 			this(modifier, @class, identifier, null, null, attributes) {}
 
-		public TypeDefinition(Access modifier, Class @class, string identifier, string[] interfaces,
-			string[] attributes)
+		public TypeDefinition(Access modifier, Class @class, String identifier, String[] interfaces,
+			String[] attributes)
 			:
 			this(modifier, @class, identifier, null, interfaces, attributes) {}
 
-		public TypeDefinition(Access modifier, Class @class, string identifier, string baseClass = null,
-			string[] interfaces = null, string[] attributes = null)
+		public TypeDefinition(Access modifier, Class @class, String identifier, String baseClass = null,
+			String[] interfaces = null, String[] attributes = null)
 		{
-			if (string.IsNullOrWhiteSpace(identifier))
+			if (String.IsNullOrWhiteSpace(identifier))
 				throw new ArgumentException("identifier");
 			if (identifier.IsValidCSharpIdentifier(true, true) == false)
 				throw new ArgumentException($"identifier '{identifier}' is not a valid C# identifier");
@@ -49,34 +48,30 @@ namespace DataIO.Script.Builder
 
 			if (interfaces != null)
 			{
-				var trimmedInterfaces = new List<string>();
+				var trimmedInterfaces = new List<String>();
 				for (var i = 0; i < interfaces.Length; i++)
-				{
 					if (interfaces[i] != null)
 					{
 						trimmedInterfaces.Add(interfaces[i].Trim());
 						if (trimmedInterfaces[i].IsValidCSharpIdentifier(true) == false)
 							throw new Exception($"'{trimmedInterfaces[i]}' is not a valid C# class or interface name");
 					}
-				}
 
 				Interfaces = trimmedInterfaces.ToArray();
 			}
 
 			if (attributes != null)
 			{
-				var trimmedAttributes = new List<string>();
+				var trimmedAttributes = new List<String>();
 				for (var i = 0; i < attributes.Length; i++)
-				{
 					if (attributes[i] != null)
 						trimmedAttributes.Add(attributes[i].Trim());
-				}
 
 				Attributes = trimmedAttributes.ToArray();
 			}
 		}
 
-		internal string Build(bool spacesForTabs = false)
+		internal String Build(Boolean spacesForTabs = false)
 		{
 			var builder = new IndentStringBuilder(spacesForTabs);
 			builder.Indentation = 1;
@@ -106,7 +101,7 @@ namespace DataIO.Script.Builder
 			return builder.ToString();
 		}
 
-		private void BuildFields(IndentStringBuilder builder, bool spacesForTabs)
+		private void BuildFields(IndentStringBuilder builder, Boolean spacesForTabs)
 		{
 			if (_fields.Count > 0)
 			{
@@ -115,7 +110,7 @@ namespace DataIO.Script.Builder
 			}
 		}
 
-		private void BuildProperties(IndentStringBuilder builder, bool spacesForTabs)
+		private void BuildProperties(IndentStringBuilder builder, Boolean spacesForTabs)
 		{
 			if (_properties.Count > 0)
 			{
@@ -126,7 +121,7 @@ namespace DataIO.Script.Builder
 			}
 		}
 
-		private void BuildConstructors(IndentStringBuilder builder, bool spacesForTabs)
+		private void BuildConstructors(IndentStringBuilder builder, Boolean spacesForTabs)
 		{
 			if (_constructors.Count > 0)
 			{
@@ -137,7 +132,7 @@ namespace DataIO.Script.Builder
 			}
 		}
 
-		private void BuildMethods(IndentStringBuilder builder, bool spacesForTabs)
+		private void BuildMethods(IndentStringBuilder builder, Boolean spacesForTabs)
 		{
 			if (_methods.Count > 0)
 			{
@@ -148,7 +143,7 @@ namespace DataIO.Script.Builder
 			}
 		}
 
-		private void BuildIndexers(IndentStringBuilder builder, bool spacesForTabs)
+		private void BuildIndexers(IndentStringBuilder builder, Boolean spacesForTabs)
 		{
 			if (_indexers.Count > 0)
 			{
@@ -159,7 +154,7 @@ namespace DataIO.Script.Builder
 			}
 		}
 
-		private bool ShouldAppendLine(Type defType)
+		private Boolean ShouldAppendLine(Type defType)
 		{
 			// TODO: this assumes a fixed order ... which is okay, for now
 			// solution: use a common interface for all, then add them all into a single list and iterate over that, appending lines only when type changes
@@ -175,8 +170,8 @@ namespace DataIO.Script.Builder
 			return false;
 		}
 
-		public override string ToString() => Build();
-		public string ToString(bool spacesForTabs) => Build(spacesForTabs);
+		public override String ToString() => Build();
+		public String ToString(Boolean spacesForTabs) => Build(spacesForTabs);
 
 		public void AddField(FieldDefinition field) => _fields.Add(field);
 		public void AddFields(FieldDefinition[] fields) => _fields.AddRange(fields);

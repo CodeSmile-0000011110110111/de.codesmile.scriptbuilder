@@ -1,6 +1,6 @@
 {
     "name": "CodeSmile.ScriptBuilder",
-    "rootNamespace": "",
+    "rootNamespace": "CodeSmile.CSharp",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -10,5 +10,5 @@
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
-    "noEngineReferences": false
+    "noEngineReferences": true
 }

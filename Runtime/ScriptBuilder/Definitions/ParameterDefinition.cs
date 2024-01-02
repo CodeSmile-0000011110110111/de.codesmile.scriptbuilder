@@ -1,36 +1,34 @@
-﻿// Copyright (C) 2021-2022 Steffen Itterheim
-// Usage is bound to the Unity Asset Store Terms of Service and EULA: https://unity3d.com/legal/as_terms
+﻿// Copyright (C) 2021-2024 Steffen Itterheim
+// Refer to included LICENSE file for terms and conditions.
 
-using DataIO.Extensions.System;
-using DataIO.Tools;
 using System;
 
-namespace DataIO.Script.Builder
+namespace CodeSmile.CSharp.Definitions
 {
 	public sealed class ParameterDefinition
 	{
-		public string Type { get; }
-		public string Identifier { get; }
+		public String Type { get; }
+		public String Identifier { get; }
 
-		public ParameterDefinition(string type, string identifier)
+		public ParameterDefinition(String type, String identifier)
 		{
-			if (string.IsNullOrWhiteSpace(type))
+			if (String.IsNullOrWhiteSpace(type))
 				throw new ArgumentException("type");
-			if (string.IsNullOrWhiteSpace(identifier))
+			if (String.IsNullOrWhiteSpace(identifier))
 				throw new ArgumentException("identifier");
 
 			Type = type.Trim();
 			Identifier = identifier.SanitizeIdentifier();
 		}
 
-		internal string Build(bool spacesForTabs = false)
+		internal String Build(Boolean spacesForTabs = false)
 		{
 			var builder = new IndentStringBuilder(spacesForTabs);
 			builder.Append(new[] { Type, " ", Identifier });
 			return builder.ToString();
 		}
 
-		public override string ToString() => Build();
-		public string ToString(bool spacesForTabs) => Build(spacesForTabs);
+		public override String ToString() => Build();
+		public String ToString(Boolean spacesForTabs) => Build(spacesForTabs);
 	}
 }
