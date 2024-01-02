@@ -1,0 +1,17 @@
+{
+    "name": "Data.IO.Script.Builder",
+    "references": [
+        "GUID:63a4784414793dc42919dd99e5c4d442",
+        "GUID:28154e08b2fcffb4ebcb500957d919c7",
+        "GUID:e30ff06f0c0924bffa3396f4bcfb9b04"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
